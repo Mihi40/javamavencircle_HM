@@ -1,26 +1,15 @@
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.netology.javaqa.javaqamvn2.services.CalcRestService;
 
 public class CalcRestServiceTest {
-    @Test
-    public void shouldCalcRestServiceExact() {
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/calc.scv")
+    public void shouldCalcRestServiceExact(int expected, int income, int expenses, int trashold) {
         CalcRestService service = new CalcRestService();
-
-        int expected = 3;
-        int actual = service.calculate(10000, 3000, 20000);
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldCalcRestServiceElse() {
-        CalcRestService service = new CalcRestService();
-
-        int expected = 2;
-        int actual = service.calculate(100000, 60000, 150000);
-
+        int actual = service.calculate(income, expenses, trashold);
         Assertions.assertEquals(expected, actual);
     }
 }
